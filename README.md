@@ -8,16 +8,18 @@ AOJのIDとパスワードを環境変数 ```AOJID``` と ```AOJPASS``` にあ�
 
 ```submit [PROBLEM NUMBER] [FILE]```
 
-ex) ```submit 0001 hello.cpp```
+問題番号は自動的に左から0詰めの4桁になります。
 
-ex) ```submit 1 hello.cpp```
+- ```submit 0001 hello.cpp```
+
+- ```submit 1 hello.cpp```
 
 ## Install
 
 To install, use `go get`:
 
 ```bash
-$ go get -d github.com/upamune/submit
+$ go get github.com/upamune/submit
 ```
 
 ## Contribution
