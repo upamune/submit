@@ -8,11 +8,8 @@ AOJのIDとパスワードを環境変数 ```AOJID``` と ```AOJPASS``` にあ�
 
 ```submit [PROBLEM NUMBER] [FILE]```
 
-問題番号は自動的に左から0詰めの4桁になります。
 
 - ```submit 0001 hello.cpp```
-
-- ```submit 1 hello.cpp```
 
 ## Install
 
