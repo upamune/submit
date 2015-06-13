@@ -1,8 +1,15 @@
-# submit
+# submit - to submit a code to AOJ
 
 ## Description
+ターミナルからAOJに提出できるコマンドです。提出時の言語は拡張子から自動的に決められます。
+AOJのIDとパスワードを環境変数 ```AOJID``` と ```AOJPASS``` にあらかじめ登録しておく必要があります。
 
 ## Usage
+
+submit [PROBLEM NUMBER] [FILE]
+
+ex) submit 0001 hello.cpp
+ex) submit 1 hello.cpp
 
 ## Install
 
