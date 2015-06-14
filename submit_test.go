@@ -48,3 +48,13 @@ func TestTrimExt(t *testing.T) {
 		t.Error("ただしくJavaScriptの拡張子が取得できていない")
 	}
 }
+
+func TestSubmitCode(t *testing.T) {
+	id, pass := setIDPass()
+	aoj := NewAOJ(id, pass, "SRC", "C", "0001")
+	if statusCode := aoj.submitCode(); statusCode != 200 {
+		t.Error("プログラムを正常に提出できていない")
+
+	}
+
+}
