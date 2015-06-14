@@ -77,3 +77,53 @@ func TestAOJStruct(t *testing.T) {
 		t.Error("PROBLEMNUMがAOJ構造体に入っていない")
 	}
 }
+
+// XMLがパースできているかテストする
+func TestXMLParse(t *testing.T) {
+	// テスト用のXML
+	xml := `
+<?xml version="1.0"?>
+<status_list>
+<status>
+<run_id>
+753727
+</run_id>
+<user_id>
+solver
+</user_id>
+<problem_id>
+0500
+</problem_id>
+<submission_date>
+1377444460525
+</submission_date>
+<submission_date_str>
+Mon Aug 26 00:27:40
+</submission_date_str>
+<status>
+Accepted
+</status>
+<language>
+C++
+</language>
+<cputime>
+0
+</cputime>
+<memory>
+1160
+</memory>
+<code_size>
+344
+</code_size>
+</status>
+</status_list>`
+	id, pass := setIDPass()
+	aoj := NewAOJ(id, pass, "SRC", "C", "0001")
+	status, date := aoj.xmlParser(xml)
+	if status != "Accepted" {
+		t.Error("AcceptedなXMLのSTATUSをパースできていない")
+	}
+	if date != 1377444460 {
+		t.Error("AcceptedなXMLのSUBMISSION_DATEをパースできていない")
+	}
+}
