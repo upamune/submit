@@ -1,19 +1,6 @@
-## 0.1.0 (2015-06-13)
-
-Initial release
+## 0.2.0 (2015-06-15)
 
 ### Added
 
-- Add Fundamental features
+- 1-4桁の問題番号に対応しました
 
-### Deprecated
-
-- Nothing
-
-### Removed
-
-- Nothing
-
-### Fixed
-
-- Nothing
