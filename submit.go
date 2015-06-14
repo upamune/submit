@@ -67,6 +67,24 @@ func (aoj AOJ) submitCode() int {
 	return res.StatusCode
 }
 
+func (aoj *AOJ) xmlParser(xml string) (string, int64) {
+	// XMLからstatusを取得する
+	re, _ := regexp.Compile("(<status>\n?)(.*)(\n?</status>)")
+	status := re.FindString(xml)
+	status = strings.Replace(status, "<status>\n", "", 1)
+	status = strings.Replace(status, "\n</status>", "", 1)
+	// XMLからsubmission_dateを取得する
+	re, _ = regexp.Compile("<submission_date>\n?(.*)\n?</submission_date>")
+	submissionDate := re.FindString(xml)
+	submissionDate = strings.Replace(submissionDate, "<submission_date>\n", "", 1)
+	submissionDate = strings.Replace(submissionDate, "\n</submission_date>", "", 1)
+
+	submissionTime, _ := strconv.ParseInt(submissionDate, 10, 64)
+	submissionTime /= 1000
+
+	return status, submissionTime
+}
+
 func (aoj *AOJ) checkSubmittedCode(submitTime int64) string {
 
 	for i := 0; i < 5; i++ {
@@ -86,20 +104,10 @@ func (aoj *AOJ) checkSubmittedCode(submitTime int64) string {
 		// println("BODY", string(body))
 
 		// 無理やりなのでXMLをパースするようにしたい
-		re, _ := regexp.Compile("(<status>\n?)(.*)(\n?</status>)")
-		status := re.FindString(string(body))
-		status = strings.Replace(status, "<status>\n", "", 1)
-		status = strings.Replace(status, "\n</status>", "", 1)
-		re, _ = regexp.Compile("<submission_date>\n?(.*)\n?</submission_date>")
-		submissionDate := re.FindString(string(body))
-		submissionDate = strings.Replace(submissionDate, "<submission_date>\n", "", 1)
-		submissionDate = strings.Replace(submissionDate, "\n</submission_date>", "", 1)
-
-		submissionTime, _ := strconv.ParseInt(submissionDate, 10, 64)
-		submissionTime /= 1000
+		status, submissionTime := aoj.xmlParser(string(body))
 
 		// 提出した時との時間差が30秒以内だったら結果を返す
-		diffTime := math.Abs(float64(submissionTime) - float64(submitTime))
+		diffTime := math.Abs(float64(submitTime) - float64(submissionTime))
 
 		if diffTime <= 30 {
 			switch status {
@@ -165,6 +173,23 @@ func checkFileType(filename string) string {
 	return "null"
 }
 
+func setIDPass() (string, string) {
+	id := os.Getenv("AOJID")
+	pass := os.Getenv("AOJPASS")
+	if id == "" && pass == "" {
+		println("Please set yourID and password on $AOJID and $AOJPASS")
+		os.Exit(1)
+	} else if id == "" {
+		println("Please set yourID on $AOJID")
+		os.Exit(1)
+	} else if pass == "" {
+		println("Please set password on $AOJPASS")
+		os.Exit(1)
+	}
+
+	return id, pass
+}
+
 func doMain(c *cli.Context) {
 	// 引数の数
 	narg := len(c.Args())
@@ -179,19 +204,7 @@ func doMain(c *cli.Context) {
 		os.Exit(1)
 	}
 	// 環境変数からIDとPASSを取得
-	id := os.Getenv("AOJID")
-	pass := os.Getenv("AOJPASS")
-	if id == "" && pass == "" {
-		println("Please set yourID and password on $AOJID and $AOJPASS")
-		os.Exit(1)
-	} else if id == "" {
-		println("Please set yourID on $AOJID")
-		os.Exit(1)
-	} else if pass == "" {
-		println("Please set password on $AOJPASS")
-		os.Exit(1)
-	}
-
+	id, pass := setIDPass()
 	// 引数から問題番号とファイル名を設定
 	number, filename := c.Args()[0], c.Args()[1]
 	// ファイル名からプログラミング言語を設定
