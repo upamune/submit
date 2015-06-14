@@ -1,8 +1,6 @@
 package main
 
-import (
-	"testing"
-)
+import "testing"
 
 // 拡張子がただしく取得できているか
 func TestTrimExt(t *testing.T) {
@@ -49,12 +47,33 @@ func TestTrimExt(t *testing.T) {
 	}
 }
 
+// プログラムを正常に提出できているかどうか
 func TestSubmitCode(t *testing.T) {
 	id, pass := setIDPass()
 	aoj := NewAOJ(id, pass, "SRC", "C", "0001")
 	if statusCode := aoj.submitCode(); statusCode != 200 {
 		t.Error("プログラムを正常に提出できていない")
-
 	}
+}
 
+func TestAOJStruct(t *testing.T) {
+	id, pass := setIDPass()
+	aoj := NewAOJ(id, pass, "SRC", "C", "0001")
+
+	// 各フィールドにちゃんと値が入っているか
+	if aoj.id != id {
+		t.Error("IDがAOJ構造体に入っていない")
+	}
+	if aoj.pass != pass {
+		t.Error("PASSがAOJ構造体に入っていない")
+	}
+	if aoj.source != "SRC" {
+		t.Error("SOURCEがAOJ構造体に入っていない")
+	}
+	if aoj.language != "C" {
+		t.Error("LANGUAGEがAOJ構造体に入っていない")
+	}
+	if aoj.problemNum != "0001" {
+		t.Error("PROBLEMNUMがAOJ構造体に入っていない")
+	}
 }
