@@ -9,6 +9,12 @@ AOJのIDとパスワードを環境変数 ```AOJID``` と ```AOJPASS``` にあ�
 ```submit [PROBLEM NUMBER] [FILE]```
 
 
+### Same
+
+- ```submit 1 hello.cpp```
+- ```submit 01 hello.cpp```
+- ```submit 001 hello.cpp```
+- ```submit 0001 hello.cpp```
 - ```submit 0001 hello.cpp```
 
 ## Install

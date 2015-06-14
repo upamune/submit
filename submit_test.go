@@ -127,3 +127,23 @@ C++
 		t.Error("AcceptedなXMLのSUBMISSION_DATEをパースできていない")
 	}
 }
+
+func TestArrangeNum(t *testing.T) {
+	number := "0001"
+	if arrangeNum(number) != "0001" {
+		t.Error("NUMBERが0001の時にうまく4桁にできない")
+	}
+	number = "001"
+	if arrangeNum(number) != "0001" {
+		t.Error("NUMBERが001の時にうまく4桁にできない")
+	}
+	number = "01"
+	if arrangeNum(number) != "0001" {
+		t.Error("NUMBERが01の時にうまく4桁にできない")
+	}
+	number = "1"
+	if arrangeNum(number) != "0001" {
+		t.Error("NUMBERが1の時にうまく4桁にできない")
+	}
+
+}

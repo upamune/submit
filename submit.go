@@ -190,6 +190,13 @@ func setIDPass() (string, string) {
 	return id, pass
 }
 
+// arrangeNum 問題番号を4桁にして返す(0詰め)
+func arrangeNum(num string) string {
+	num = "0000" + num
+
+	return num[len(num)-4:]
+}
+
 func doMain(c *cli.Context) {
 	// 引数の数
 	narg := len(c.Args())
@@ -207,6 +214,8 @@ func doMain(c *cli.Context) {
 	id, pass := setIDPass()
 	// 引数から問題番号とファイル名を設定
 	number, filename := c.Args()[0], c.Args()[1]
+	number = arrangeNum(number)
+
 	// ファイル名からプログラミング言語を設定
 	language := checkFileType(filename)
 	// ファイル名のファイルを読み込む
