@@ -165,6 +165,23 @@ func checkFileType(filename string) string {
 	return "null"
 }
 
+func setIDPass() (string, string) {
+	id := os.Getenv("AOJID")
+	pass := os.Getenv("AOJPASS")
+	if id == "" && pass == "" {
+		println("Please set yourID and password on $AOJID and $AOJPASS")
+		os.Exit(1)
+	} else if id == "" {
+		println("Please set yourID on $AOJID")
+		os.Exit(1)
+	} else if pass == "" {
+		println("Please set password on $AOJPASS")
+		os.Exit(1)
+	}
+
+	return id, pass
+}
+
 func doMain(c *cli.Context) {
 	// 引数の数
 	narg := len(c.Args())
@@ -179,19 +196,7 @@ func doMain(c *cli.Context) {
 		os.Exit(1)
 	}
 	// 環境変数からIDとPASSを取得
-	id := os.Getenv("AOJID")
-	pass := os.Getenv("AOJPASS")
-	if id == "" && pass == "" {
-		println("Please set yourID and password on $AOJID and $AOJPASS")
-		os.Exit(1)
-	} else if id == "" {
-		println("Please set yourID on $AOJID")
-		os.Exit(1)
-	} else if pass == "" {
-		println("Please set password on $AOJPASS")
-		os.Exit(1)
-	}
-
+	id, pass := setIDPass()
 	// 引数から問題番号とファイル名を設定
 	number, filename := c.Args()[0], c.Args()[1]
 	// ファイル名からプログラミング言語を設定
