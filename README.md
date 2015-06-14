@@ -1,5 +1,7 @@
 # submit - to submit a code to AOJ
 
+[![Build Status](https://travis-ci.org/upamune/submit.svg?branch=master)](https://travis-ci.org/upamune/submit)
+
 ## Description
 ターミナルからAOJに提出できるコマンドです。提出時の言語は拡張子から自動的に決められます。
 AOJのIDとパスワードを環境変数 ```AOJID``` と ```AOJPASS``` にあらかじめ登録しておく必要があります。
