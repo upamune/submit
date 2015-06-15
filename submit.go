@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/codegangsta/cli"
+	"github.com/mgutz/ansi"
 )
 
 func main() {
@@ -197,6 +198,100 @@ func arrangeNum(num string) string {
 	return num[len(num)-4:]
 }
 
+func printResult(res string) {
+	AC := `
+    _    ____
+   / \  / ___|
+  / _ \| |
+ / ___ \ |___
+/_/   \_\____|
+	`
+	TLE := `
+ _____ _     _____
+|_   _| |   | ____|
+  | | | |   |  _|
+  | | | |___| |___
+  |_| |_____|_____|
+  `
+	RE := `
+ ____  _____
+|  _ \| ____|
+| |_) |  _|
+|  _ <| |___
+|_| \_\_____|
+	`
+	PE := `
+ ____  _____
+|  _ \| ____|
+| |_) |  _|
+|  __/| |___
+|_|   |_____|
+	`
+	WA := `
+__        ___
+\ \      / / \
+ \ \ /\ / / _ \
+  \ V  V / ___ \
+   \_/\_/_/   \_\
+	`
+	CE := `
+  ____ _____
+ / ___| ____|
+| |   |  _|
+| |___| |___
+ \____|_____|
+	`
+	MLE := `
+ __  __ _     _____
+|  \/  | |   | ____|
+| |\/| | |   |  _|
+| |  | | |___| |___
+|_|  |_|_____|_____|
+	`
+	PP := `
+ ____  ____
+|  _ \|  _ \
+| |_) | |_) |
+|  __/|  __/
+|_|   |_|
+	`
+	OLE := `
+  ___  _     _____
+ / _ \| |   | ____|
+| | | | |   |  _|
+| |_| | |___| |___
+ \___/|_____|_____|
+ `
+
+	red := ansi.ColorCode("red")
+	green := ansi.ColorCode("green")
+	yellow := ansi.ColorCode("yellow")
+	reset := ansi.ColorCode("reset")
+
+	switch res {
+	case "AC":
+		fmt.Println(green, AC, reset)
+	case "TLE":
+		fmt.Println(yellow, TLE, reset)
+	case "RE":
+		fmt.Println(red, RE, reset)
+	case "PE":
+		fmt.Println(red, PE, reset)
+	case "WA":
+		fmt.Println(red, WA, reset)
+	case "CE":
+		fmt.Println(red, CE, reset)
+	case "MLE":
+		fmt.Println(red, MLE, reset)
+	case "PP":
+		fmt.Println(red, PP, reset)
+	case "OLE":
+		fmt.Println(red, OLE, reset)
+	}
+
+	return
+}
+
 func doMain(c *cli.Context) {
 	// 引数の数
 	narg := len(c.Args())
@@ -225,10 +320,6 @@ func doMain(c *cli.Context) {
 		os.Exit(1)
 	}
 	aoj := NewAOJ(id, pass, string(src), language, number)
-	// println("ID =>", aoj.id, "PASS => ", aoj.pass)
-	// println("ProblemNum => ", aoj.problemNum)
-	// println("LANGAGE => ", aoj.language)
-	// println("SRC\n", aoj.source)
 	resCode := aoj.submitCode()
 	submittedTime := time.Now().Unix()
 	if resCode != 200 {
@@ -238,6 +329,6 @@ func doMain(c *cli.Context) {
 
 	time.Sleep(1 * time.Second)
 	judge := aoj.checkSubmittedCode(submittedTime)
-	println(judge)
+	printResult(judge)
 
 }
