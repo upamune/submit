@@ -37,7 +37,7 @@ func (p *Problem) showProblem() {
 
 func doShow(c *cli.Context) {
 	originURL := "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id="
-	problemNum := c.Args()[0]
+	problemNum := arrangeNum(c.Args()[0])
 	p := fetchProblem(originURL + problemNum)
 	p.showProblem()
 }
