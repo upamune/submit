@@ -16,6 +16,27 @@ import (
 	"github.com/mgutz/ansi"
 )
 
+var Commands = []cli.Command{
+	commandDefault,
+	commandShow,
+}
+
+var commandDefault = cli.Command{
+	Name:  "",
+	Usage: "",
+	Description: `
+	`,
+	Action: doMain,
+}
+
+var commandShow = cli.Command{
+	Name:  "show",
+	Usage: "",
+	Description: `
+	`,
+	Action: doShow,
+}
+
 func main() {
 	app := cli.NewApp()
 	app.Name = "submit"
@@ -23,7 +44,7 @@ func main() {
 	app.Usage = ""
 	app.Author = "upamune"
 	app.Email = "jajkeqos@gmail.com"
-	app.Action = doMain
+	app.Commands = Commands
 	app.Run(os.Args)
 }
 
@@ -330,5 +351,4 @@ func doMain(c *cli.Context) {
 	time.Sleep(1 * time.Second)
 	judge := aoj.checkSubmittedCode(submittedTime)
 	printResult(judge)
-
 }

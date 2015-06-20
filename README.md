@@ -8,8 +8,16 @@ AOJのIDとパスワードを環境変数 ```AOJID``` と ```AOJPASS``` にあ�
 
 ## Usage
 
-```submit [PROBLEM NUMBER] [FILE]```
+提出
 
+```
+  submit [PROBLEM NUMBER] [FILE]
+```
+
+問題表示
+```
+  submit show [PROBLEM NUMBER]
+```
 
 ### Same
 
